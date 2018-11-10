@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -52,14 +53,14 @@ var artists []Artist = []Artist{
 var songs []Song = []Song{
 	Song{
 		ID:       "1",
-		Album:    "ts-dark-as-night",
+		Album:    "Dark As Night",
 		Title:    "Buddying Trees",
 		Duration: "06:24",
 		Type:     "song",
 	},
 	Song{
 		ID:       "2",
-		Album:    "ts-dark-as-night",
+		Album:    "Dark As Night",
 		Title:    "Aloha Ke Akua",
 		Duration: "05:56",
 		Type:     "song",
@@ -89,7 +90,7 @@ func main() {
 			"title": &graphql.Field{
 				Type: graphql.String,
 			},
-			"duraction": &graphql.Field{
+			"duration": &graphql.Field{
 				Type: graphql.String,
 			},
 		},
@@ -227,5 +228,6 @@ func main() {
 		})
 		json.NewEncoder(w).Encode(result)
 	})
+	fmt.Printf("server listening on port 8080\n")
 	http.ListenAndServe(":8080", nil)
 }
