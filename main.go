@@ -185,8 +185,13 @@ func main() {
 			},
 		},
 	})
+	rootMutation := graphql.NewObject(graphql.ObjectConfig{
+		Name:   "Mutation",
+		Fields: graphql.Fields{},
+	})
 	schema, _ := graphql.NewSchema(graphql.SchemaConfig{
-		Query: rootQuery,
+		Query:    rootQuery,
+		Mutation: rootMutation,
 	})
 	http.HandleFunc("/graphql", func(w http.ResponseWriter, r *http.Request) {
 		result := graphql.Do(graphql.Params{
