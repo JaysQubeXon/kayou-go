@@ -38,6 +38,7 @@ var albums []Album = []Album{
 		Artist: "1",
 		Title:  "Dark As Night",
 		Year:   "2008",
+		Genre:  "country",
 		Type:   "album",
 	},
 }
@@ -179,6 +180,23 @@ func main() {
 					for _, artist := range artists {
 						if artist.Name == name {
 							return artist, nil
+						}
+					}
+					return nil, nil
+				},
+			},
+			"genre": &graphql.Field{
+				Type: graphql.String,
+				Args: graphql.FieldConfigArgument{
+					"kind": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+				},
+				Resolve: func(params graphql.ResolveParams) (interface{}, error) {
+					kind := params.Args["kind"].(string)
+					for _, album := range albums {
+						if album.Genre == kind {
+							return album, nil
 						}
 					}
 					return nil, nil
