@@ -250,25 +250,27 @@ func main() {
 					},
 				},
 				Resolve: func(params graphql.ResolveParams) (interface{}, error) {
-					id := params.Args["id"].(string)
-					album := params.Args["album"].(string)
-					title := params.Args["title"].(string)
-					duration := params.Args["duration"].(string)
-					for _, song := range songs {
-						if song.ID == id {
-							if song.Album != album {
-								song.Album = album
+					id, _ := params.Args["id"].(string)
+					album, albumOk := params.Args["album"].(string)
+					title, titleOk := params.Args["title"].(string)
+					duration, durationOk := params.Args["duration"].(string)
+					song := Song{}
+					for _, selectedSong := range songs {
+						if selectedSong.ID == id {
+							if albumOk {
+								selectedSong.Album = album
 							}
-							if song.Title != title {
-								song.Title = title
+							if titleOk {
+								selectedSong.Title = title
 							}
-							if song.Duration != duration {
-								song.Duration = duration
+							if durationOk {
+								selectedSong.Duration = duration
 							}
-							return song, nil
+							song = selectedSong
+							break
 						}
 					}
-					return nil, nil
+					return song, nil
 				},
 			},
 		},
