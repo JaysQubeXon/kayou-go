@@ -16,6 +16,10 @@ create a new song with the `createSong` mutation:
 
 [`http://localhost:8080/graphql?query=mutation+_{createSong(id:"3",album:"Dark As Night",title:"Warrior People",duration:"04:57"){title,duration}}`](http://localhost:8080/graphql?query=mutation+_{createSong(id:"3",album:"Dark As Night",title:"Warrior People",duration:"04:57"){title,duration}})
 
+update a song with `updateSong` mutation:
+
+[`http://localhost:8080/graphql?query=mutation+_{updateSong(id:"1",album: "Dark As Night",title:"Warrior People!",duration:"06:55"){album,title,duration}}`](http://localhost:8080/graphql?query=mutation+_{updateSong(id:"1",album: "Dark As Night",title:"Warrior People!",duration:"06:55"){album,title,duration}})
+
 other options:
 
 query for all songs:
@@ -33,3 +37,4 @@ query for an album:
 query for a specific genre:
 
 [`http://localhost:8080/graphql?query={genre(kind:%22country%22){id,title,year}}`](http://localhost:8080/graphql?query={genre(kind:%22country%22){id,title,year}})
+
