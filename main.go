@@ -186,7 +186,7 @@ func main() {
 				},
 			},
 			"genre": &graphql.Field{
-				Type: graphql.String,
+				Type: albumType,
 				Args: graphql.FieldConfigArgument{
 					"kind": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),
