@@ -233,6 +233,44 @@ func main() {
 					return song, nil
 				},
 			},
+			"updateSong": &graphql.Field{
+				Type: songType,
+				Args: graphql.FieldConfigArgument{
+					"id": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+					"album": &graphql.ArgumentConfig{
+						Type: graphql.String,
+					},
+					"title": &graphql.ArgumentConfig{
+						Type: graphql.String,
+					},
+					"duration": &graphql.ArgumentConfig{
+						Type: graphql.String,
+					},
+				},
+				Resolve: func(params graphql.ResolveParams) (interface{}, error) {
+					id := params.Args["id"].(string)
+					album := params.Args["album"].(string)
+					title := params.Args["title"].(string)
+					duration := params.Args["duration"].(string)
+					for _, song := range songs {
+						if song.ID == id {
+							if song.Album != album {
+								song.Album = album
+							}
+							if song.Title != title {
+								song.Title = title
+							}
+							if song.Duration != duration {
+								song.Duration = duration
+							}
+							return song, nil
+						}
+					}
+					return nil, nil
+				},
+			},
 		},
 	})
 	schema, _ := graphql.NewSchema(graphql.SchemaConfig{
