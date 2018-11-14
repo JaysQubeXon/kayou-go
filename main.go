@@ -273,6 +273,26 @@ func main() {
 					return song, nil
 				},
 			},
+			"deleteSong": &graphql.Field{
+				Type: songType,
+				Args: graphql.FieldConfigArgument{
+					"id": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+				},
+				Resolve: func(params graphql.ResolveParams) (interface{}, error) {
+					id := params.Args["id"].(string)
+					var song = Song{}
+					for i, selectedSong := range songs {
+						if selectedSong.ID == id {
+							song = songs[i]
+							songs = append(songs[:i], songs[i+1:]...)
+							break
+						}
+					}
+					return song, nil
+				},
+			},
 		},
 	})
 	schema, _ := graphql.NewSchema(graphql.SchemaConfig{

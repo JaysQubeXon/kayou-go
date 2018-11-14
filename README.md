@@ -20,6 +20,10 @@ update a song with `updateSong` mutation:
 
 [`http://localhost:8080/graphql?query=mutation+_{updateSong(id:"1",album: "Dark As Night",title:"Warrior People!",duration:"06:55"){album,title,duration}}`](http://localhost:8080/graphql?query=mutation+_{updateSong(id:"1",album: "Dark As Night",title:"Warrior People!",duration:"06:55"){album,title,duration}})
 
+delete a song with `deleteSong` mutation:
+
+[`http://localhost:8080/graphql?query=mutation+_{deleteSong(id:%221%22){id,album,title,duration}}`](http://localhost:8080/graphql?query=mutation+_{deleteSong(id:%221%22){id,album,title,duration}})
+
 other options:
 
 query for all songs:
