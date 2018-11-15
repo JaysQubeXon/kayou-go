@@ -22,7 +22,12 @@ update a song with `updateSong` mutation:
 
 delete a song with `deleteSong` mutation:
 
-[`http://localhost:8080/graphql?query=mutation+_{deleteSong(id:%221%22){id,album,title,duration}}`](http://localhost:8080/graphql?query=mutation+_{deleteSong(id:%221%22){id,album,title,duration}})
+[`http://localhost:8080/graphql?query=mutation+_{deleteSong(id:"1"){id,album,title,duration}}`](http://localhost:8080/graphql?query=mutation+_{deleteSong(id:%221%22){id,album,title,duration}})
+
+
+create a new artist:
+
+[`http://localhost:8080/graphql?query=mutation+_{createArtist(id:"2", name: "boaz barlia"){id,name}}`](http://localhost:8080/graphql?query=mutation+_{createArtist(id:"2", name: "boaz barlia"){id,name}})
 
 other options:
 

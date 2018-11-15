@@ -302,15 +302,13 @@ func main() {
 					"name": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),
 					},
-					"type": &graphql.ArgumentConfig{
-						Type: graphql.NewNonNull(graphql.String),
-					},
 				},
 				Resolve: func(params graphql.ResolveParams) (interface{}, error) {
-					/*
-						@todo handle creation of artist
-					*/
-					return nil, nil
+					var artist Artist
+					artist.ID = params.Args["id"].(string)
+					artist.Name = params.Args["name"].(string)
+					artists = append(artists, artist)
+					return artist, nil
 				},
 			},
 		},
