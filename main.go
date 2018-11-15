@@ -293,6 +293,26 @@ func main() {
 					return song, nil
 				},
 			},
+			"createArtist": &graphql.Field{
+				Type: artistType,
+				Args: graphql.FieldConfigArgument{
+					"id": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+					"name": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+					"type": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+				},
+				Resolve: func(params graphql.ResolveParams) (interface{}, error) {
+					/*
+						@todo handle creation of artist
+					*/
+					return nil, nil
+				},
+			},
 		},
 	})
 	schema, _ := graphql.NewSchema(graphql.SchemaConfig{
