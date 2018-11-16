@@ -32,7 +32,7 @@ type Song struct {
 	Type     string `json:"type"`
 }
 
-var albums []Album = []Album{
+var albums = []Album{
 	Album{
 		ID:     "ts-dark-as-night",
 		Artist: "1",
@@ -43,7 +43,7 @@ var albums []Album = []Album{
 	},
 }
 
-var artists []Artist = []Artist{
+var artists = []Artist{
 	Artist{
 		ID:   "1",
 		Name: "Nahko and Medicine for the People",
@@ -51,7 +51,7 @@ var artists []Artist = []Artist{
 	},
 }
 
-var songs []Song = []Song{
+var songs = []Song{
 	Song{
 		ID:       "1",
 		Album:    "Dark As Night",
@@ -68,6 +68,13 @@ var songs []Song = []Song{
 	},
 }
 
+/**
+ * Filter receives songs as first param
+ * and a func as second param, that checks if
+ * value is a song in the Song array. If it is,
+ * it appends it to a new array of type Song
+ * and returns it.
+ */
 func Filter(songs []Song, f func(Song) bool) []Song {
 	vsf := make([]Song, 0)
 	for _, v := range songs {
