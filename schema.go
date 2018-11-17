@@ -4,7 +4,8 @@ import "github.com/graphql-go/graphql"
 
 func dataTypes() (*graphql.Object, *graphql.Object, *graphql.Object) {
 	songType := graphql.NewObject(graphql.ObjectConfig{
-		Name: "Song",
+		Name:        "Song",
+		Description: "",
 		Fields: graphql.Fields{
 			"id": &graphql.Field{
 				Type: graphql.String,
@@ -21,7 +22,8 @@ func dataTypes() (*graphql.Object, *graphql.Object, *graphql.Object) {
 		},
 	})
 	artistType := graphql.NewObject(graphql.ObjectConfig{
-		Name: "Artist",
+		Name:        "Artist",
+		Description: "",
 		Fields: graphql.Fields{
 			"id": &graphql.Field{
 				Type: graphql.String,
@@ -35,7 +37,8 @@ func dataTypes() (*graphql.Object, *graphql.Object, *graphql.Object) {
 		},
 	})
 	albumType := graphql.NewObject(graphql.ObjectConfig{
-		Name: "Album",
+		Name:        "Album",
+		Description: "",
 		Fields: graphql.Fields{
 			"id": &graphql.Field{
 				Type: graphql.String,
