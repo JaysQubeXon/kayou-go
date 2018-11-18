@@ -8,7 +8,8 @@ func RootMutation(albumType graphql.Type, artistType graphql.Type, songType grap
 		Name: "Mutation",
 		Fields: graphql.Fields{
 			"createSong": &graphql.Field{
-				Type: songType,
+				Type:        songType,
+				Description: "Create a new song and add to a specified album",
 				Args: graphql.FieldConfigArgument{
 					"id": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),
@@ -34,7 +35,8 @@ func RootMutation(albumType graphql.Type, artistType graphql.Type, songType grap
 				},
 			},
 			"updateSong": &graphql.Field{
-				Type: songType,
+				Type:        songType,
+				Description: "Update a songs properties",
 				Args: graphql.FieldConfigArgument{
 					"id": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),
@@ -74,7 +76,8 @@ func RootMutation(albumType graphql.Type, artistType graphql.Type, songType grap
 				},
 			},
 			"deleteSong": &graphql.Field{
-				Type: songType,
+				Type:        songType,
+				Description: "Delete a song from the songs list",
 				Args: graphql.FieldConfigArgument{
 					"id": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),
@@ -94,7 +97,8 @@ func RootMutation(albumType graphql.Type, artistType graphql.Type, songType grap
 				},
 			},
 			"createArtist": &graphql.Field{
-				Type: artistType,
+				Type:        artistType,
+				Description: "Create a new artist",
 				Args: graphql.FieldConfigArgument{
 					"id": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),
