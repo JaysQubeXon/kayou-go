@@ -10,7 +10,7 @@ import (
 
 func main() {
 	albumType, artistType, songType := dataTypes()
-	rootQuery := RootQuery(albumType, artistType, songType)
+	rootQuery, _ := RootQuery(albumType, artistType, songType)
 
 	rootMutation := graphql.NewObject(graphql.ObjectConfig{
 		Name: "Mutation",

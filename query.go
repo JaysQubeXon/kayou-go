@@ -6,7 +6,8 @@ import (
 	"github.com/graphql-go/graphql"
 )
 
-func RootQuery(albumType Album, artistType Artist, songType Song) (*graphql.Object, error) {
+// "Root query"
+func RootQuery(albumType graphql.Type, artistType graphql.Type, songType graphql.Type) (*graphql.Object, error) {
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name:        "Query",
 		Description: "Root query object",
