@@ -9,24 +9,24 @@ import (
 	"github.com/graph-gophers/graphql-go/relay"
 )
 
-type query struct{}
+type Resolver struct{}
 
-func (_ *query) Hello() string { return "Hello, world!\n" }
+var schema *graphql.Schema
+
+func init() {
+	s, err := KayouSchema()
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	schema = graphql.MustParseSchema(s, &Resolver{})
+}
 
 func main() {
-	s := `
-		schema {
-			query: Query
-		}
-		type Query {
-			hello: String!
-		}
-	`
+
 	http.Handle("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Write(page)
 	}))
 
-	schema := graphql.MustParseSchema(s, &query{})
 	http.Handle("/query", &relay.Handler{Schema: schema})
 	fmt.Printf("server listening on port 8080\n")
 	log.Fatal(http.ListenAndServe(":8080", nil))
