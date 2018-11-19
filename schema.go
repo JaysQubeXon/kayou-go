@@ -11,7 +11,7 @@ func KayouSchema() (string, error) {
 			mutation: Mutation 
 		}
 		type Query {
-			songs(): [Song]
+			songs(album: String!): [Song]
 			album(id: String!): Album
 			artist(name: String!): Artist
 			genre(kind: String!): Album
@@ -22,21 +22,21 @@ func KayouSchema() (string, error) {
 			# Update a song with specific ID
 			updateSong(id: ID!, album: String!, title: String!, duration: String!): Song
 			# Delete a song with specified ID
-			deleteSong(id: ID!): Boolean
+			deleteSong(id: ID!): Song
 
 			# Create a new Artist
 			createArtist(id: ID!, name: String!): Artist
 			# Update an Artist with specific ID
 			updateArtist(id: ID!, name: String!): Artist
 			# Delete an Artist with specified ID
-			deleteArtist(id: ID!): Boolean
+			deleteArtist(id: ID!): Artist
 
 			# Create a new Album
 			createAlbum(id: ID, artist: String!, title: String!, year: String!, genre: String): Album
 			# Update an Album with specific ID
 			updateAlbum(id: ID, artist: String!, title: String!, year: String!, genre: String): Album
 			# Delete an Album with specidied ID
-			deleteAlbum(id: ID!): Boolean
+			deleteAlbum(id: ID!): Album
 		}
 		# Song in an album
 		type Song {
