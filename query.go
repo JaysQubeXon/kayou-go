@@ -6,9 +6,9 @@ import (
 	graphql "github.com/graph-gophers/graphql-go"
 )
 
-func (_ *Resolver) Songs(album string) []*Song {
-	var filtered []*Song
-	filtered = Filter(*songs, func(v Song) bool {
+func (_ *Resolver) Songs(album string) []Song {
+	var filtered []Song
+	filtered = Filter(songs, func(v *Song) bool {
 		return strings.Contains(v.Album, album)
 	})
 	return filtered
