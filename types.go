@@ -12,31 +12,35 @@ type Album struct {
 	Type   string
 }
 
-type AlbumResolver struct {
+type albumResolver struct {
 	album *Album
 }
 
-func (resolve *AlbumResolver) ID() graphql.ID {
+func (resolve *albumResolver) ID() graphql.ID {
 	return resolve.album.ID
 }
 
-func (resolve *AlbumResolver) Artist() string {
+func (resolve *albumResolver) Artist() string {
 	return resolve.album.Artist
 }
 
-func (resolve *AlbumResolver) Title() string {
+func (resolve *albumResolver) Title() string {
 	return resolve.album.Title
 }
 
-func (resolve *AlbumResolver) Year() string {
+func (resolve *albumResolver) Year() string {
 	return resolve.album.Year
 }
 
-func (resolve *AlbumResolver) Genre() string {
-	return resolve.album.Genre
+func (resolve *albumResolver) Genre() *string {
+	genre := &resolve.album.Genre
+	if len(*genre) == 0 {
+		return nil
+	}
+	return genre
 }
 
-func (resolve *AlbumResolver) Type() string {
+func (resolve *albumResolver) Type() string {
 	return resolve.album.Type
 }
 
@@ -47,19 +51,19 @@ type Artist struct {
 	Type string
 }
 
-type ArtistResolver struct {
+type artistResolver struct {
 	artist *Artist
 }
 
-func (resolve *ArtistResolver) ID() graphql.ID {
+func (resolve *artistResolver) ID() graphql.ID {
 	return resolve.artist.ID
 }
 
-func (resolve *ArtistResolver) Name() string {
+func (resolve *artistResolver) Name() string {
 	return resolve.artist.Name
 }
 
-func (resolve *ArtistResolver) Type() string {
+func (resolve *artistResolver) Type() string {
 	return resolve.artist.Type
 }
 
@@ -71,26 +75,26 @@ type Song struct {
 	Type     string
 }
 
-type SongResolver struct {
+type songResolver struct {
 	song *Song
 }
 
-func (resolve *SongResolver) ID() graphql.ID {
+func (resolve *songResolver) ID() graphql.ID {
 	return resolve.song.ID
 }
 
-func (resolve *SongResolver) Album() string {
+func (resolve *songResolver) Album() string {
 	return resolve.song.Album
 }
 
-func (resolve *SongResolver) Title() string {
+func (resolve *songResolver) Title() string {
 	return resolve.song.Title
 }
 
-func (resolve *SongResolver) Duration() string {
+func (resolve *songResolver) Duration() string {
 	return resolve.song.Duration
 }
 
-func (resolve *SongResolver) Type() string {
+func (resolve *songResolver) Type() string {
 	return resolve.song.Type
 }
