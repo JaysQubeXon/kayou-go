@@ -4,14 +4,6 @@ import (
 	graphql "github.com/graph-gophers/graphql-go"
 )
 
-// func (*Resolver) songs(args struct{ Album string }) *[]*songResolver {
-// 	var filtered *[]*songResolver
-// 	filtered = filter(songs, func(v *Song) bool {
-// 		return strings.Contains(v.Album, args.Album)
-// 	})
-// 	return filtered
-// }
-
 func (_ *Resolver) Album(args struct{ ID graphql.ID }) *albumResolver {
 	if a := albumData[args.ID]; a != nil {
 		return &albumResolver{a}
