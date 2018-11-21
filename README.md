@@ -25,7 +25,7 @@ mutation createNewSong($id: ID!, $album: String!, $title: String!, $duration: St
 }
 ```
 add the following into the `Query Variables` section:
-```json
+```JSON
 {
   "id": "7",
   "album": "Dark As Night",
@@ -50,7 +50,7 @@ query for an album:
 }
 ```
 returns:
-```json
+```JSON
 {
   "data": {
     "album": {
