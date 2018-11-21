@@ -1,6 +1,6 @@
 # kayou-go
 
-The Go implementation of the kayou server
+The Go implementation of the kayou server using the [graphql-go/graphql](https://github.com/graphql-go/graphql) package
 
 ### instructions:
 
