@@ -1,49 +1,65 @@
 # kayou-go
 
-The Go implementation of the kayou server
+The Go implementation of the kayou server using the [graph-gophers/graphql-go](https://github.com/graph-gophers/graphql-go) package.
 
 ### instructions:
 
-BUild with `go build` command.
+Build with `go build` command and run with `./kayou-go`.
 
 open browser at:
 
-[`http://localhost:8080/graphql`](http://localhost:8080/graphql)
+[`http://localhost:8080`](http://localhost:8080)
 
 example queries:
 
-create a new song with the `createSong` mutation:
+create a new song with the `CreateSong` mutation:
 
-`http://localhost:8080/graphql?query=mutation+_{createSong(id:"3",album:"Dark As Night",title:"Warrior People",duration:"04:57"){title,duration}}`
+```javascript
+mutation createNewSong($id: ID!, $album: String!, $title: String!, $duration: String!) {
+    createSong(id: $id, album: $album, title: $title, duration: $duration) {
+    id
+    album
+    title
+    duration
+    }
+}
+```
+add the following into the `Query Variables` section:
+```json
+{
+  "id": "7",
+  "album": "Dark As Night",
+  "title": "Warrior People",
+  "duration": "04:57"
+}
+```
 
-update a song with `updateSong` mutation:
-
-`http://localhost:8080/graphql?query=mutation+_{updateSong(id:"1",album: "Dark As Night",title:"Warrior People!",duration:"06:55"){album,title,duration}}`
-
-delete a song with `deleteSong` mutation:
-
-`http://localhost:8080/graphql?query=mutation+_{deleteSong(id:"1"){id,album,title,duration}}`
-
-
-create a new artist with `createArtist`:
-
-`http://localhost:8080/graphql?query=mutation+_{createArtist(id:"2", name: "boaz barlia"){id,name}}`
-
-other options:
-
-query for all songs:
-
-`http://localhost:8080/graphql?query={songs(album:"Dark As Night"){id,album,title,duration}}`
-
-query for an artist:
-
-`http://localhost:8080/graphql?query={artist(name:"Nahko and Medicine for the People"){id,name}}`
+Query options:
 
 query for an album:
 
-`http://localhost:8080/graphql?query={album(id:"ts-dark-as-night"){id,title,year}}`
-
-query for a specific genre:
-
-`http://localhost:8080/graphql?query={genre(kind:%22country%22){id,title,year}}`
-
+```javascript
+{
+  album(id: "ts-dark-as-night") {
+    id
+    title
+    artist
+    year
+    genre
+  }   
+}
+```
+returns:
+```json
+{
+  "data": {
+    "album": {
+      "id": "ts-dark-as-night",
+      "title": "Dark As Night",
+      "artist": "1",
+      "year": "2008",
+      "genre": "country"
+    }
+  }
+}
+```
