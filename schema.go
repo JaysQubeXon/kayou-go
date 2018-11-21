@@ -10,8 +10,7 @@ func KayouSchema() (string, error) {
 			query: Query
 			mutation: Mutation 
 		}
-		type Query {
-			#songs(album: String!): [Song]
+		type Query {			
 			album(id: ID!): Album
 			artist(name: String!): Artist
 			genre(kind: String!): Album
