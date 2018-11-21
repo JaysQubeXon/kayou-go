@@ -15,23 +15,45 @@ example queries:
 create a new song with the `CreateSong` mutation:
 
 ```javascript
-mutation createNewSong($id: ID!, $album: String!, $title: String!, $duration: String!) {
+  mutation createNewSong($id: ID!, $album: String!, $title: String!, $duration: String!) {
     createSong(id: $id, album: $album, title: $title, duration: $duration) {
-    id
-    album
-    title
-    duration
+      id
+      album
+      title
+      duration
     }
-}
+  }
 ```
 add the following into the `Query Variables` section:
 ```JSON
-{
-  "id": "7",
-  "album": "Dark As Night",
-  "title": "Warrior People",
-  "duration": "04:57"
-}
+  {
+    "id": "7",
+    "album": "Dark As Night",
+    "title": "Warrior People",
+    "duration": "04:57"
+  }
+```
+
+update a selected song with `UpdateSong` mutation:
+
+```javascript
+  mutation updateSelectedSong($id: ID!, $album: String!, $title: String!, $duration: String!) {
+    updateSong(id: $id, album: $album, title: $title, duration: $duration) {
+      id
+      album
+      title
+      duration
+    }
+  }
+```
+add the following into the `Query Variables` section:
+```JSON
+  {
+    "id": "7",
+    "album": "Dark As Night",
+    "title": "Warrior People!",
+    "duration": "04:58"
+  }
 ```
 
 Query options:
