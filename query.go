@@ -1,41 +1,37 @@
 package main
 
 import (
-	"strings"
-
 	graphql "github.com/graph-gophers/graphql-go"
 )
 
-func (_ *Resolver) Songs(album string) []Song {
-	var filtered []Song
-	filtered = Filter(songs, func(v *Song) bool {
-		return strings.Contains(v.Album, album)
-	})
-	return filtered
+// func (*Resolver) songs(args struct{ Album string }) *[]*songResolver {
+// 	var filtered *[]*songResolver
+// 	filtered = filter(songs, func(v *Song) bool {
+// 		return strings.Contains(v.Album, args.Album)
+// 	})
+// 	return filtered
+// }
+
+func (_ *Resolver) Album(args struct{ ID graphql.ID }) *albumResolver {
+	if a := albumData[args.ID]; a != nil {
+		return &albumResolver{a}
+	}
+	return nil
 }
 
-func (_ *Resolver) Album(id graphql.ID) interface{} {
-	for _, album := range albums {
-		if album.ID == id {
-			return album
+func (_ *Resolver) Artist(args struct{ Name string }) *artistResolver {
+	for _, artist := range artistData {
+		if artist.Name == args.Name {
+			return &artistResolver{artist}
 		}
 	}
 	return nil
 }
 
-func (_ *Resolver) Artist(name string) interface{} {
-	for _, artist := range artists {
-		if artist.Name == name {
-			return artist
-		}
-	}
-	return nil
-}
-
-func (_ *Resolver) Genre(kind string) interface{} {
-	for _, album := range albums {
-		if album.Genre == kind {
-			return album
+func (_ *Resolver) Genre(args struct{ Kind string }) *albumResolver {
+	for _, album := range albumData {
+		if album.Genre == args.Kind {
+			return &albumResolver{album}
 		}
 	}
 	return nil
