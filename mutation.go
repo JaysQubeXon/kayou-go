@@ -1,156 +1,155 @@
 package main
 
-import "github.com/graph-gophers/graphql-go"
+import (
+	"github.com/graph-gophers/graphql-go"
+)
 
-func (_ *Resolver) CreateSong(args struct {
-	id       graphql.ID
-	album    string
-	title    string
-	duration string
-}) Song {
-	var song *Song
-	song.ID = args.id
-	song.Album = args.album
-	song.Title = args.title
-	song.Duration = args.duration
-	song.Type = "song"
-	songs = append(songs, song)
-	return *song
+func (_ *Resolver) CreateSong(args *struct {
+	ID       graphql.ID
+	Album    string
+	Title    string
+	Duration string
+}) *songResolver {
+	song := &Song{
+		ID:       args.ID,
+		Album:    args.Album,
+		Title:    args.Title,
+		Duration: args.Duration,
+		Type:     "song",
+	}
+	songData[song.ID] = song
+	return &songResolver{song}
 }
 
-func (_ *Resolver) UpdateSong(args struct {
-	id       graphql.ID
-	album    string
-	title    string
-	duration string
-}) Song {
-	song := &Song{}
-	for _, selectedSong := range songs {
-		if selectedSong.ID == args.id {
-			if len(args.album) > 0 {
-				selectedSong.Album = args.album
+func (_ *Resolver) UpdateSong(args *struct {
+	ID       graphql.ID
+	Album    string
+	Title    string
+	Duration string
+}) *songResolver {
+	for _, selectedSong := range songData {
+		if selectedSong.ID == args.ID {
+			if len(args.Album) > 0 {
+				selectedSong.Album = args.Album
 			}
-			if len(args.title) > 0 {
-				selectedSong.Title = args.title
+			if len(args.Title) > 0 {
+				selectedSong.Title = args.Title
 			}
-			if len(args.duration) > 0 {
-				selectedSong.Duration = args.duration
+			if len(args.Duration) > 0 {
+				selectedSong.Duration = args.Duration
 			}
-			song = selectedSong
-			break
+			return &songResolver{selectedSong}
+
 		}
 	}
-	return *song
+	return nil
 }
 
-func (_ *Resolver) DeleteSong(args struct{ id graphql.ID }) Song {
-	song := &Song{}
-	for i, selectedSong := range songs {
-		if selectedSong.ID == args.id {
-			song = songs[i]
-			songs = append(songs[:i], songs[i+1:]...)
-			break
+func (_ *Resolver) DeleteSong(args struct{ ID graphql.ID }) *songResolver {
+
+	for i, selectedSong := range songData {
+		if selectedSong.ID == args.ID {
+			songData[args.ID] = nil
+			delete(songData, i)
+			return &songResolver{selectedSong}
 		}
 	}
-	return *song
+	return nil
 }
 
-func (_ *Resolver) CreateArtist(args struct {
-	id   graphql.ID
-	name string
-}) Artist {
-	var artist *Artist
-	artist.ID = args.id
-	artist.Name = args.name
-	artist.Type = "artist"
-	artists = append(artists, artist)
-	return *artist
+func (_ *Resolver) CreateArtist(args *struct {
+	ID   graphql.ID
+	Name string
+}) *artistResolver {
+	artist := &Artist{
+		ID:   args.ID,
+		Name: args.Name,
+		Type: "artist",
+	}
+	artistData[args.ID] = artist
+	return &artistResolver{artist}
 }
 
-func (_ *Resolver) UpdateArtist(args struct {
-	id   graphql.ID
-	name string
-}) Artist {
-	artist := &Artist{}
+func (_ *Resolver) UpdateArtist(args *struct {
+	ID   graphql.ID
+	Name string
+}) *artistResolver {
 	for _, selectedArtist := range artists {
-		if selectedArtist.ID == args.id {
-			if len(args.name) > 0 {
-				selectedArtist.Name = args.name
+		if selectedArtist.ID == args.ID {
+			if len(args.Name) > 0 {
+				selectedArtist.Name = args.Name
 			}
-			artist = selectedArtist
-			break
+			return &artistResolver{selectedArtist}
 		}
 	}
-	return *artist
+	return nil
 }
 
-func (_ *Resolver) DeleteArtist(args struct{ id graphql.ID }) Artist {
-	artist := &Artist{}
-	for i, selectedArtist := range artists {
-		if selectedArtist.ID == args.id {
-			artist = artists[i]
-			artists = append(artists[:i], artists[i+1:]...)
-			break
+func (_ *Resolver) DeleteArtist(args *struct{ ID graphql.ID }) *artistResolver {
+	for i, selectedArtist := range artistData {
+		if selectedArtist.ID == args.ID {
+			artistData[args.ID] = nil
+			delete(artistData, i)
+			return &artistResolver{selectedArtist}
 		}
 	}
-	return *artist
+	return nil
 }
 
-func (_ *Resolver) CreateAlbum(args struct {
-	id     graphql.ID
-	artist string
-	title  string
-	year   string
-	genre  string
-}) Album {
-	var album *Album
-	album.ID = args.id
-	album.Artist = args.artist
-	album.Title = args.title
-	album.Year = args.year
-	album.Genre = args.genre
-	album.Type = "album"
-	albums = append(albums, album)
-	return *album
+func (_ *Resolver) CreateAlbum(args *struct {
+	ID     graphql.ID
+	Artist string
+	Title  string
+	Year   string
+	Genre  string
+}) *albumResolver {
+	album := &Album{
+		ID:     args.ID,
+		Artist: args.Artist,
+		Title:  args.Title,
+		Year:   args.Year,
+		Genre:  args.Genre,
+		Type:   "album",
+	}
+	albumData[args.ID] = album
+	return &albumResolver{album}
 }
 
-func (_ *Resolver) UpdateAlbum(args struct {
-	id     graphql.ID
-	artist string
-	title  string
-	year   string
-	genre  string
-}) Album {
-	album := &Album{}
-	for _, selectedAlbum := range albums {
-		if selectedAlbum.ID == args.id {
-			if len(args.artist) > 0 {
-				selectedAlbum.Artist = args.artist
+func (_ *Resolver) UpdateAlbum(args *struct {
+	ID     graphql.ID
+	Artist string
+	Title  string
+	Year   string
+	Genre  string
+}) *albumResolver {
+	for _, selectedAlbum := range albumData {
+		if selectedAlbum.ID == args.ID {
+			if len(args.Artist) > 0 {
+				selectedAlbum.Artist = args.Artist
 			}
-			if len(args.title) > 0 {
-				selectedAlbum.Title = args.title
+			if len(args.Title) > 0 {
+				selectedAlbum.Title = args.Title
 			}
-			if len(args.year) > 0 {
-				selectedAlbum.Year = args.year
+			if len(args.Year) > 0 {
+				selectedAlbum.Year = args.Year
 			}
-			if len(args.genre) > 0 {
-				selectedAlbum.Genre = args.genre
+			if len(args.Genre) > 0 {
+				selectedAlbum.Genre = args.Genre
 			}
-			album = selectedAlbum
-			break
+			return &albumResolver{selectedAlbum}
 		}
 	}
-	return *album
+	return nil
 }
 
-func (_ *Resolver) DeleteAlbum(args struct{ id graphql.ID }) Album {
-	album := &Album{}
-	for i, selectedAlbum := range albums {
-		if selectedAlbum.ID == args.id {
-			album = albums[i]
-			albums = append(albums[:i], albums[i+1:]...)
-			break
+func (_ *Resolver) DeleteAlbum(args *struct{ ID graphql.ID }) *albumResolver {
+	for i, selectedAlbum := range albumData {
+		if selectedAlbum.ID == args.ID {
+			albumData[args.ID] = nil
+			delete(albumData, i)
+			return &albumResolver{selectedAlbum}
+
 		}
 	}
-	return *album
+	return nil
 }
