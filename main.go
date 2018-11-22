@@ -29,7 +29,10 @@ func main() {
 
 	http.Handle("/query", &relay.Handler{Schema: schema})
 	fmt.Printf("server listening on port 8080\n")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		log.Fatal("ListenAndServe ", err)
+	}
 }
 
 var page = []byte(`
