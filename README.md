@@ -56,6 +56,39 @@ add the following into the `Query Variables` section:
   }
 ```
 
+delete a selected song with `DeleteSong` mutation:
+
+```javascript
+  mutation deleteSelectedSong($id: ID!) {
+    deleteSong(id: $id) {
+      id
+      album
+      title
+      duration
+    }
+  }
+```
+add the following into the `Query Variables` section:
+```JSON
+  {
+    "id": "7"
+  }
+```
+you should expect the following: (returning the deleted song)
+```JSON
+{
+  "data": {
+    "deleteSong": {
+      "id": "7",
+      "album": "Dark As Night",
+      "title": "Warrior People!",
+      "duration": "04:58"
+    }
+  }
+}
+```
+
+
 Query options:
 
 query for an album:
